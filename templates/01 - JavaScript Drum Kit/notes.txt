@@ -1,0 +1,317 @@
+NOTES for github repo https://github.com/wesbos/JavaScript30
+
+javascript 30 - 01 javascript drumkit
+
+youtube tutorial: https://www.youtube.com/watch?v=VuN8qwZoego
+
+
+10/11/22 - Begin Notes:
+
+project purpose:    
+
+                    to write javascript that interacts with the 
+                    pre written HTML and CSS
+                    so that the visual and audio
+                    experience of playing a drum set
+                    occur upon the user pressing the corresponding
+                    keys on the keyboard.   
+
+
+creating your own type of html element is possible
+
+data-
+
+as long as you put data- in front of a word you can establish
+your own type of element to use as an identifiable node.
+
+here he puts the data-key="65" which is the keycode indicator
+for html input event for pressing the "a" key. to find the keycode
+for any key go to 
+
+keycode.info
+
+so looking at the keycode 65 for a in the first div
+scroll down to the bottom section of code where we insert audio data
+and again establish the data-key="65" element inside of an html audio tag
+as well as the src element directing to the source file for the sound.
+
+scrolling down some more.. above the </body> tag but below all the <audio> tags 
+we write the following javascript code in order
+to create an eventlistener that logs the event of a keystroke.
+
+window.addEventListener( 'keydown', function (e){
+    console.log(e);
+});
+
+from there we open the live server in google chrome, and take a peek
+at the console. when we press "a" on our keyboard it logs the event
+to the console. if we click the down arrown on that event log we
+can see all kinds of information about that event.
+
+if we go back into the javascript and type .keycode into the forumula:
+
+window.addEventListener( 'keydown', function (e){
+    console.log(e.keycode)
+});
+
+now when we check the log on google chrome console it shows the number
+of any of the keys that you press on the keyboard in the log.
+This is important as this number is used in accordance with out html attribute data-key=#
+
+now add the following code to connect the <audio> tag to the eventlistener in
+the javascript:
+
+const audio = document.querySelector('audio[]')
+
+the brackets is how we select an attribute within a HTML element.
+
+('audio[data-key=65]')
+
+except this doesn't work because that is going to be a variable that lives
+inside of the (e) event callback
+
+so we switch the '' to backticks ` ` and use 
+ES6 template strings: ${}
+and within those brackets we write e.keyCode 
+so the result is:
+
+window.addEventListener( 'keydown', function (e){
+    const audio = document.querySelector(`audio[data-key=${e.keycode}]`)
+
+    
+})
+
+now we can write console.log(audio); instead of e.keyCode to check
+if the audio playback is working.
+
+it doesn't work because with an error saying audio[data-key] is not a valid selector
+
+the solution is to put  "" around the ES6 template strings. 
+instead of typing into the querySelector ('audio[data-key=65]')
+we replace the 65 with a variable that connects
+(e) element to callback. 
+
+
+
+
+
+WHAT IS HAPPENING
+
+step by step:
+
+add an event listener keyword-function
+within the window of the browser: window.addEventListener()
+
+this .addEventListener() function will contain two properties
+within it's parameters: ()
+
+1. a built-in keyword event called: 'keydown'
+
+which is similar to 'onclick' only it reacts to the
+pressing of a key on a keyboard instead of a mouse click.
+
+2. and an anonymous new function 
+that we define by stating the keyword: function ()
+
+this anonymous function will take a variable parameter: (e)
+
+it will hold the result of our 
+anonymous function - in other words it will be a 
+callback to: .addEventListener()
+
+so far we have:
+
+window.addEventListener( 'keydown', function (e) ){
+
+};
+
+the value of this second parameter: (e) 
+
+will be determined
+by the code that follows, which we place within 
+the curly brackets as usual when we define a function: fucntion(e) {}
+
+within those curly braces we place the code 
+that is to produce the value for the callback variable: (e)
+
+the intended goal of this cpde is to call upon the entire <audio>
+element which contains the .wav file and play the audio link
+by matching the data-key attribute's property number with the 
+corresponding keycode on the keyboard.  
+
+the code for function (e) is as follows:
+
+create a new const variable called: audio
+
+audio will be defined as equal to the result 
+of the keyword / built-in function: .querySelector()
+
+so that we can use just the word: sound
+
+!or anyword you want - this part is a variable!
+but keep in mind that it is a 
+
+to reference the html node element: <audio>
+
+which can be found throughout our 
+entire document: document.querySelector()
+
+.querySelector() will take only one argument in this case: 'audio'
+
+which is not a vaiable but based on the built in html tag <audio>
+
+when calling upon built-in html node-elements within javascript
+such as <audio> or <div> or <button> etc....
+we just put tag within two sub-string quotation marks: ''
+while leaving out the: <>
+
+so having 'audio' within the parameters of: .querySelector
+allows us to select all the <audio> references in the html document
+but we still need to get to the attribute: data-key within <audio>.
+
+we do so by including brackets: [] 
+
+like so: 'audio[]'
+
+so we put: data-key
+
+within the attribute selector: []
+
+now we have selected the attribute 'data-key' of <audio>
+
+'audio[data-key]'
+
+so: 
+
+const audio = document.querySelector('audio[data-key=?]')
+
+we still need to get the changing value of each data-key: eg. data-key="?"
+
+and since that value changes depending on which <audio> tag 
+is referenced during the 'keydown' event we use what is called
+
+an:  ES6 Template String
+
+which looks like this: ${}
+
+using this ES6 also requires that we change the: ''
+
+around the: 'audio[]'
+
+into backticks: `audio[]`
+
+so to write this incorrectly but just as
+and example tp show what each part does
+and by using words that describe what each word is doing:
+
+ (`htmlAudioTag[selected-attribute-data-key="${object.someMethod}"]')
+
+ now what do we put inside the curly braces?
+
+ we put a built in function called keyCode()
+ and we invoke it to produce the key code associated 
+ with whatever value is contained within our variable (e)
+ which is the same as the value that is equal 
+ to the attribute data-key:
+
+ e.keyCode 
+
+ to put that together we get
+
+ sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+
+
+
+
+since the audio won't work for keys that aren't listed in the html
+we put an if statement that returns if a key that isn't on the 
+list is pressed.
+
+and finally have it play it if it is in the list.
+
+sound.play();
+
+so on the keydown event we are inserting the number = ? from the html element
+
+
+
+
+HERE IS THE CODE WITH NOTES TO SEE IT VISUALLY EXPLAINED:
+
+window.addEventListener( 'keydown', function (e){
+    const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                        /* `audio` select the <audio> tag
+                         we use backticks instead of '' because of the 
+                            E6 template string method we are about to use...
+                         [] attribute selector
+                            data-key is the attribute
+                         ${} is the ES6 Template String method 
+                            in order to feed in a variable string
+                         e.keyCode applies the keyCode function
+                            to the variable (e) 
+                         who's value is passed down from the anonymous function
+                            so that const sound 
+                            selects the <audio> tag
+                            based on whatever keystroke is key'd down
+                            when it matches the data-key's value within the html
+                            eg. a = "65" */  
+    console.log(sound); /* to test in console if it's working */
+    if (!sound) return; /* stop the function from running altogether if there 
+                            is no associated data-key value in the html*/
+    sound.play();       /* selects appropriate <audio> tag and plays the .wav file */
+});
+
+
+Here is just the javascript code:
+
+<script>
+
+window.addEventListener( 'keydown', function (e){
+    const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    console.log(sound);
+    if (!sound) return;
+    sound.play();
+});
+
+</script>
+
+
+QUESTIONS:
+
+1.  Why do we have to use the <audio> tag at all? 
+    Why can't we just reference the data-key attribute directly?
+    For that matter, why can't we just access the .wav file
+        and skip the data-key attribute altogether?
+
+Assumptions:
+
+    we need to access the entire <audio> tag because the
+    keyCode number which occurs needs to be matched with the src=.wav
+    file. without the data-key="#" matching the keyCode we would have no
+    way to querySelect the audio file dynamically. 
+
+1a.  in other words there are 2 attributes that need to be accessed.
+
+1b.  furthermore the <audio> html element
+        is necessary for the built in play() function to work.
+
+2. assuming that my assumptions are correc: 
+    
+    a.    would it be possible to circumvent the use of the 
+              data-key attribute by using the ES6 string template 
+                on the .wav file itself?
+
+    b.    what if we named each wav file so that they each contained
+            the keyCode in it's name? 
+            what if we used ${/[e.match.keyCode]/}?
+
+            eg.
+            /* HTML */ 
+            <audio src="sounds.tink76"></audio>
+            // script
+            window.addEventListener('keydown', function(e){
+            const sound = document.querySelector(`audio[src="${/e.match.keyCode/}"]`);
+            if (!sound) return;
+            sound.play();
+            });
+ 

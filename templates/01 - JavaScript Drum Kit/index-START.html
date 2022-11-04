@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+<script>
+window.addEventListener( 'keydown', function (e){
+    const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                                                                                /* `audio` select the <audio> tag
+                                                                                we use backticks instead of '' because of the 
+                                                                                E6 template string method we are about to use...
+                                                                                [] attribute or property - of - selector
+                                                                                data-key is the property or attribute. depends on the resource you reference.
+                                                                                ${} is the ES6 Template String method 
+                                                                                in order to feed in a variable string
+                                                                                e.keyCode applies the keyCode function
+                                                                                to the variable (e) 
+                                                                                which will be called back up to the function (e) 
+                                                                                by making the new variable sound = to the <audio> tag with a property of the 
+                                                                                based on whatever keystroke is key'd down
+                                                                                when it matches the data-key's value within the html 
+                                                                                eg. a = "65" */  
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);        /* accessing the .key class from the <div> tag */
+    console.log(sound);                                                         /* to test in console if it's working and see all the event stats */
+    if (!sound) return;                                                         /* stop the function from running altogether if there 
+                                                                                is no associated data-key value in the html*/
+    sound.currentTime = 0;                                                      /* rewinds the audio to the start so one can play in 
+                                                                                quick succession the sound */
+    sound.play();                                                               /* selects appropriate <audio> tag and plays the .wav file */
+    console.log(key);                                                           /* the console shows the div tag with the .key class */
+    key.classList.add('playing');
+    
+    
+  });
+  
+  function removeTransition(e){
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('playing');
+  };
+
+  
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition)); 
+    
+</script>
+
+
+</body>
+</html>
