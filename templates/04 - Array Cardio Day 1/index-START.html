@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+    // Get your shorts on - this is an array workout!
+    // ## Array Cardio Day 1
+
+    // Some data we can work with
+
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+
+    const people = [
+      'Bernhard, Sandra', 'Bethea, Erin', 'Becker, Carl', 'Bentsen, Lloyd', 'Beckett, Samuel', 'Blake, William', 'Berger, Ric', 'Beddoes, Mick', 'Beethoven, Ludwig',
+      'Belloc, Hilaire', 'Begin, Menachem', 'Bellow, Saul', 'Benchley, Robert', 'Blair, Robert', 'Benenson, Peter', 'Benjamin, Walter', 'Berlin, Irving',
+      'Benn, Tony', 'Benson, Leana', 'Bent, Silas', 'Berle, Milton', 'Berry, Halle', 'Biko, Steve', 'Beck, Glenn', 'Bergman, Ingmar', 'Black, Elk', 'Berio, Luciano',
+      'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
+      'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
+    ];
+
+
+
+
+    
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- FILTER() ----------------------------------------------------
+
+            // 1. Filter the list of inventors for those who were born in the 1500's
+
+    // Array.prototype.filter()
+
+    // one way to do this example:
+
+    const fifteenHundo = inventors.filter(function (inventor) {
+      if ( inventor.year >= 1500 && inventor.year < 1600){
+        return true; // true means to keep it!
+                    //  no need to use an else statement. if you don't return anything
+                    //  other than a true statement .... there is no need to include else false
+      }});
+      console.log("1a = list below")
+      console.log(fifteenHundo);
+
+
+    // a simpler way to write all that code and reduce the complexity is the following:
+    // because the statement is looking for a boolean of true 
+    // we can summarize the code as follows:
+
+
+    const fifteen = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+    console.log("1b = table below")
+    console.table(fifteen);
+
+    // also note the use of console.table(); nice eh?
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- MAP() ---------------------------------------------------------
+
+    // Array.prototype.map()
+
+      // WHAT DOES MAP DO?
+
+      // map() takes in an ARRAY
+
+      // it does something with that array
+
+      // then returns a NEW array but of the same LENGTH
+
+      // think of map() as a sort of factory machine where it takes in a raw material and will stamp is somehow
+      // and then kick out that item on the other end.
+      // with filter() you can bring in 10 things and return 2
+      // map() will always return the same amount of items you give it
+
+
+    // 2. Give us an array of the inventors first and last names
+
+
+      // building off of the more concise and cleaner way we wrote the first example we could
+      //  choose to do things this way: 
+        
+
+        const completeNames = inventors.map(inventor =>  inventor.first + inventor.last);
+        console.log("2a = list below")
+        console.log(completeNames);
+
+      // notice the issue with the spacing as it is returning the first and last names mashed
+      // together. so we need to add + " " + 
+      // like so
+
+        const allNames = inventors.map(inventor => inventor.first + ' ' + inventor.last);
+        console.log("2b = list below")
+        console.log(allNames);
+        
+        //  or we could use the string variable operator `${}` 
+        //  in which case we don't need to worry about the + or the srting spacer ' ' 
+        //  note the placement of the back-tics `` 
+
+    const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log("2c = list below")  
+    console.log(fullNames);
+
+
+
+
+    
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- SORT() ----------------------------------------------------
+
+          // 3. Sort the inventors by birth-date, oldest to youngest
+    
+    
+    // Array.prototype.sort()
+
+    //  the way that sort works is you get two items and you're asked to sort just those two
+    //  items. So in this case you ask, "is person A older than person B ?  " and if so you
+    //  you put the older person on top
+    //  the way we do that is be returning 1 and -1
+
+
+    const ordered = inventors.sort(function(a, b){
+      if (a.year > b.year){
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    console.log("3a = table below")
+    console.table(ordered);
+
+
+    // the other way to write this in shorter format is to use a ternary operator. 
+    // example --- using "ordered2" as we already declared "ordered" as a const and 
+    // do not want to get a compile error:
+
+    const ordered2 = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    console.log("3b = table below");
+    console.table(ordered2);
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- REDUCE() ----------------------------------------------------
+
+          // 4. How many years did all the inventors live all together?
+
+
+    // Array.prototype.reduce()
+    
+    // where as sort() and map() and filter() sort them or turn them into something else or
+    // filter them down what a reduce() will allow you to build something on every single one
+    
+    
+    // here is an example of something that is commonly done that works fine 
+    // without using reduce().... 
+
+    var totalYears = 0;
+
+    for (var i = 0; i < inventors.length; i++) {
+      totalYears += (inventors[i].passed - inventors[i].year)
+    };
+    console.log("4a = amount below") ; 
+    console.log(totalYears);
+
+
+      // but what using reduce() will do is give you a running total or what you've returned
+      // from this function last time, that is the last time around
+      // remember that all of these methods are just looping through your data arrays
+
+      // a reduce() is a much cleaner way to do that and you don't have to use the crazy
+      // [i] square bracket [i] thing that is kinda confusing
+      
+      // here is an example using the reduce() operator that doesn't quite work....
+
+    const allYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year)
+    } );
+    console.log("4b = amount below");
+    console.log(allYears);
+
+    // this doesn't work so.... what is happening is that the first time around the loop
+    // the "total" hasn't been defined so the way we fix it is by adding an initial return
+    // value of 0, as the second value parameter of reduce((value1), value2); 
+    // so it looks like this:
+
+    const sumYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    },0);
+    console.log("4c = amount below")
+    console.log(sumYears);
+
+
+    //  so it may help to think of this like this
+
+    // 1. we are defining the const sum years as
+
+    //          const sumYears =
+
+    // 2. a function that will build upon something using each pass through the array
+    //     called inventors by using the reduce method
+
+    //          inventors.reduce()
+    
+    // 3. from the reduce method we want to return the total amount since we are
+    //      looking for a single number in the end as well as a variable to hold
+    //      the amount from each time the loop passes through which I will call
+    //      newVariable (in the example we say 'inventor').
+
+    //          inventors.reduce(total, newVariable)
+
+    // 4. and we also want to return a value of the years that is the difference
+    //      between each inventor was born and when they died
+
+    //          newVariable.passed - newVariable.year
+
+
+    // 5. so the return statement looks like
+
+    //          return total + (newVariable.passed = newVariable.year)
+
+    //     as total corresponds to the word 'total' in the properties defined in reduce(total)
+
+    //     and (newVariable.passed = newVariable.year) corresponds to the property of reduce(newVariable)
+
+    // 6.  but because only newVariable is defined after the return statement
+    //      we need to add the , 0 to kick off the value of total AFTER the => {}
+  
+    
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- SORT() ----------------------------------------------------
+
+    // 5. Sort the inventors by years lived
+
+
+    const oldest = inventors.sort(function(a, b){
+      const lastInventor = a.passed - a.year;
+      const nextInventor = b.passed - b.year;
+        if (lastInventor > nextInventor){
+          return -1;
+        }else{
+          return 1;
+        }
+    });
+    console.log("5a = below");
+    console.table(oldest);
+
+
+    // we can use our ternary operator to again, simplify this statement:
+
+    const elder = inventors.sort(function(a,b){
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+      return lastGuy > nextGuy ? -1 : 1;
+    });
+    console.log("5b = below");
+    console.table(elder);
+
+    // so we can see that the "if" statement can be removed entirely by the ternary operator.
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- MAP() ----------------------------------------------------
+    
+    // 6. see solution6.js
+    
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- SORT () ----------------------------------------------------
+
+
+    // 7. sort Exercise
+    // Sort the people alphabetically by last name
+
+
+    const peopleByLastName = people.sort((lastOne,nextOne)=>{
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+       
+    });
+    console.log("7 = below");
+    console.log(peopleByLastName);
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // ---------------------- REDUCE () ----------------------------------------------------
+
+
+    // 8. Reduce Exercise
+    // Sum up the instances of each of these
+
+
+
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    
+    const transportation = data.reduce(function(obj, item){
+    }, {})
+
+
+    // so this is the way you start: obj gets a {} and item gets a {} seperated by a ,
+
+    // so to see what's going on we write within the object function's {} the following
+
+    const transport2 = data.reduce(function(obj, item){
+      console.log(item);
+      return obj;
+    
+    },{})
+
+    //Now what we want to do is we need to say if well, 
+    // let's do this! We'll say object of item plus plus 
+    // And usually what that would do. 
+    // If we had a walk O here, 
+    // it would just increment it to 1, 
+    // but because we don't know if that key exists just yet 
+    // what we need to do is check for it on the end here 
+
+
+    // so we have to say 
+    // if there is no object item then object item is equal to zero
+
+
+    // ------- SOLUTION --------------------------------------------------------------------------
+
+    const transport3 = data.reduce(function(obj, item){
+      if(!obj[item]){
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    
+    },{})
+
+    console.log(transport3);
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // --------------------------------------------------------------------------  
+
+
+    const transport4 = data.reduce((obj, item) => {
+      if(!obj[item]){
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    
+    },{})
+
+    console.log(transport4);
+
+  
+
+  </script>
+</body>
+</html>
