@@ -30,6 +30,23 @@ function operate(){
       a = a + thisOpperator;
     })}};
 
+  document.querySelectorAll('button').forEach(item => {
+    item.addEventListener('click', event => {
+      if (item.querySelector('.number')){
+      a = enterNumber();
+      if (item.querySelector('.operat')){
+        operate();
+        if(item.querySelector('.number')){
+          clear();
+          b = enterNumber();
+        }
+        if(item.querySelector('.operat')){
+          equals(a);
+        }
+        if (item.querySelector('clear'){
+          clear();
+      }}}})});
+
 
   
   
