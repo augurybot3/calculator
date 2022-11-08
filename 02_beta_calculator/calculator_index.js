@@ -45,7 +45,10 @@ function operate(){
         }
         if (item.querySelector('clear'){
           clear();
-      }}}})});
+      }
+     }
+    }
+  })});
 
 
   
