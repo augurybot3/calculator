@@ -1,0 +1,27 @@
+div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: 1px solid;
+    text-size-adjust: 5px;
+    font-size: x-large;
+    font-weight: bold;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+
+}
+
+#test{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 45px;
+    border: 1px solid;
+    text-size-adjust: 5px;
+    font-size: x-large;
+    font-weight: bold;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+
+}
